@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Unite Note Editor</title>
+        <style type="text/css" media="screen">
+            body {
+                overflow: hidden;
+            }
+
+            #editor {
+                margin: 0;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+        </style>
+        <link rel="stylesheet" type="text/css" href="un_style.css">
+    </head>
+    <body>
+        <pre id="editor" class="node-editor">
+// [name]*(nodeId\nameIndex) -- Default context (stays when creating new node)
+// [name](nodeId/nameIndex)	-- Regular context
+// :[name]*(nodeId\nameIndex) -- Default type (stays when creating new node)
+// :[name](nodeId/nameIndex) -- Refular type
+
+// If there is a blank line after meta data, it creates a sub-section instead of content.
+[Landoss 戰記](sample2\0)
+[設定](afef23f90va/0)
+
+	[人物](123f423fdsqf3/0)
+	阿迪
+	阿迪・比亞斯
+	蘭斯洛・比亞斯
+	:[主角](112321f2w3/0)
+	:[男性](312v32r23r/0)
+	:[人類](6dzs34r3f/0)
+		出生於一個沒落的騎士家族。自少希望成為一個出色的騎士。
+		之後當上了騎士，開始對騎士團產生疑問。因為實際上西卡帝國有做一些手腳使騎士團在人民心中的地位保持不變。
+
+	[阿迪](8579348/0)->[性格](234vf3f/0)
+	    ......
+
+	[阿迪・比亞斯](8579348/1)->[喜歡的東西](1234f31f3/0)
+	    ......
+
+	[阿迪](8579348/0)->[討厭的東西](823338457/0)
+	    ......
+
+	[蘭特洛斯曆](908yv3/0).[0892年01月15日](jhf83w2/0)
+	[森普村](29vjbfs/0)
+	[卡爾](fewfsqf3/0)[露娜](8865487334/0)->[阿迪](4648932534/0)
+	:[出生](f8svh349/0)
+	    當卡爾失踪後⋯⋯
+----
+[My Writings](v089a6s3gf/0)
+Landoss 戰記
+        </pre>
+
+        <!-- load ace -->
+        <script src="../build/src/ace.js"></script>
+        <!-- load ace language tools -->
+        <script src="../build/src/ext-language_tools.js"></script>
+        <script>
+            // trigger extension
+            ace.require("ace/ext/language_tools");
+            var editor = ace.edit("editor");
+            editor.session.setMode("ace/mode/un");
+            editor.setTheme("ace/theme/tomorrow");
+            // enable autocompletion and snippets
+            editor.setOptions({
+                enableBasicAutocompletion: true,
+                enableSnippets: true
+            });
+        </script>
+    </body>
+</html>
