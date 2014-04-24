@@ -17,7 +17,6 @@
             right: 0;
         }
     </style>
-    <link rel="stylesheet" type="text/css" href="un_style.css">
 </head>
 <body>
 <pre id="editor" class="node-editor">
@@ -66,27 +65,39 @@ Landoss 戰記
 <script>
     var myCompleter = {
         getCompletions: function(editor, session, pos, prefix, callback) {
+            var mode = session.getMode();
+            if (mode.$id !== "ace/mode/un") {
+                return;
+            }
+
             console.log("Inside getCompletions:");
-            console.log(editor);
-            console.log(session);
-            console.log(pos);
-            console.log(prefix);
-            console.log(callback);
+            console.log(mode);
 //                session.$worker.emit("complete", { data: { pos: pos, prefix: prefix } });
 //                session.$worker.on("complete", function(e){
 //                    callback(null, e.data);
 //                });
         }
+//        getCompletions: function(editor, session, pos, prefix, callback) {
+//            if (prefix.length === 0) { callback(null, []); return }
+//            $.getJSON(
+//                    "http://rhymebrain.com/talk?function=getRhymes&word=" + prefix,
+//                    function(wordList) {
+//                        // wordList like [{"word":"flow","freq":24,"score":300,"flags":"bc","syllables":"1"}]
+//                        callback(null, wordList.map(function(ea) {
+//                            return {name: ea.word, value: ea.word, score: ea.score, meta: "rhyme"}
+//                        }));
+//                    })
+//        }
     };
 
     // trigger extension
     var LanguageTools = ace.require("ace/ext/language_tools");
     var editor = ace.edit("editor");
     editor.session.setMode("ace/mode/un");
-    editor.setTheme("ace/theme/tomorrow");
+    editor.setTheme("ace/theme/un_default");
     // enable autocompletion and snippets
     editor.setOptions({
-        enableLiveAutocomplete: [myCompleter]
+        enableLiveAutocompletion: [myCompleter]
     });
 </script>
 </body>
