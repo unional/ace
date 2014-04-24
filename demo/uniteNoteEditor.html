@@ -1,26 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Unite Note Editor</title>
-        <style type="text/css" media="screen">
-            body {
-                overflow: hidden;
-            }
+<head>
+    <meta charset="UTF-8">
+    <title>Unite Note Editor</title>
+    <style type="text/css" media="screen">
+        body {
+            overflow: hidden;
+        }
 
-            #editor {
-                margin: 0;
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-            }
-        </style>
-        <link rel="stylesheet" type="text/css" href="un_style.css">
-    </head>
-    <body>
-        <pre id="editor" class="node-editor">
+        #editor {
+            margin: 0;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+<pre id="editor" class="node-editor">
 // [name]*(nodeId\nameIndex) -- Default context (stays when creating new node)
 // [name](nodeId/nameIndex)	-- Regular context
 // :[name]*(nodeId\nameIndex) -- Default type (stays when creating new node)
@@ -59,21 +58,47 @@
 Landoss 戰記
         </pre>
 
-        <!-- load ace -->
-        <script src="../build/src/ace.js"></script>
-        <!-- load ace language tools -->
-        <script src="../build/src/ext-language_tools.js"></script>
-        <script>
-            // trigger extension
-            ace.require("ace/ext/language_tools");
-            var editor = ace.edit("editor");
-            editor.session.setMode("ace/mode/un");
-            editor.setTheme("ace/theme/tomorrow");
-            // enable autocompletion and snippets
-            editor.setOptions({
-                enableBasicAutocompletion: true,
-                enableSnippets: true
-            });
-        </script>
-    </body>
+<!-- load ace -->
+<script src="../build/src/ace.js"></script>
+<!-- load ace language tools -->
+<script src="../build/src/ext-language_tools.js"></script>
+<script>
+    var myCompleter = {
+        getCompletions: function(editor, session, pos, prefix, callback) {
+            var mode = session.getMode();
+            if (mode.$id !== "ace/mode/un") {
+                return;
+            }
+
+            console.log("Inside getCompletions:");
+            console.log(mode);
+//                session.$worker.emit("complete", { data: { pos: pos, prefix: prefix } });
+//                session.$worker.on("complete", function(e){
+//                    callback(null, e.data);
+//                });
+        }
+//        getCompletions: function(editor, session, pos, prefix, callback) {
+//            if (prefix.length === 0) { callback(null, []); return }
+//            $.getJSON(
+//                    "http://rhymebrain.com/talk?function=getRhymes&word=" + prefix,
+//                    function(wordList) {
+//                        // wordList like [{"word":"flow","freq":24,"score":300,"flags":"bc","syllables":"1"}]
+//                        callback(null, wordList.map(function(ea) {
+//                            return {name: ea.word, value: ea.word, score: ea.score, meta: "rhyme"}
+//                        }));
+//                    })
+//        }
+    };
+
+    // trigger extension
+    var LanguageTools = ace.require("ace/ext/language_tools");
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/un");
+    editor.setTheme("ace/theme/un_default");
+    // enable autocompletion and snippets
+    editor.setOptions({
+        enableLiveAutocompletion: [myCompleter]
+    });
+</script>
+</body>
 </html>
