@@ -59,7 +59,24 @@
 }
 
 .ace-un-default .ace_invisible {
-  color: #343434
+  color: #343434;
+}
+
+.ace-un-default .ace_operator {
+	color: #B9CA4A;
+}
+
+.ace-un-default .ace_nodeName,
+.ace-un-default .ace_link.ace_relation {
+	color: #C397D8;
+}
+
+.ace-un-default .ace_link {
+	color: #7ba7d8;
+}
+
+.ace-un-default .ace_link.ace_type {
+	color: #d89161;
 }
 
 .ace-un-default .ace_keyword,
@@ -67,11 +84,11 @@
 .ace-un-default .ace_storage,
 .ace-un-default .ace_storage.ace_type,
 .ace-un-default .ace_support.ace_type {
-  color: #C397D8
+  color: #C397D8;
 }
 
 .ace-un-default .ace_keyword.ace_operator {
-  color: #70C0B1
+  color: #70C0B1;
 }
 
 .ace-un-default .ace_constant.ace_character,
